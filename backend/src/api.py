@@ -90,16 +90,26 @@ def drinks(f, id):
         }), 500
 
 
-'''
-@TODO implement endpoint
-    DELETE /drinks/<id>
-        where <id> is the existing model id
-        it should respond with a 404 error if <id> is not found
-        it should delete the corresponding row for <id>
-        it should require the 'delete:drinks' permission
-    returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
-        or appropriate status code indicating reason for failure
-'''
+@app.route('/drinks/<id>', methods=['DELETE'], endpoint='delete_drink')
+@requires_auth('patch:drinks')
+def drinks(f, id):
+    try:
+        drink = drink = Drink.query.filter(Drink.id == id).one_or_none()
+        if drink:
+            drink.delete()
+            return json.dumps({'success': True, 'drink': id}), 200
+        else:
+            return json.dumps({
+                'success':
+                False,
+                'error':
+                'Drink #' + id + ' not found to be deleted'
+            }), 404
+    except:
+        return json.dumps({
+            'success': False,
+            'error': "An error occurred"
+        }), 500
 
 
 # Error Handling
