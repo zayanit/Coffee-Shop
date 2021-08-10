@@ -133,22 +133,17 @@ def unprocessable(error):
         "error": 400,
         "message": "Check the body request"
     }), 400
-    
-'''
-@TODO implement error handlers using the @app.errorhandler(error) decorator
-    each error handler should return (with approprate messages):
-             jsonify({
-                    "success": False,
-                    "error": 404,
-                    "message": "resource not found"
-                    }), 404
 
-'''
-
-'''
-@TODO implement error handler for 404
-    error handler should conform to general task above
-'''
+@app.errorhandler(404)
+def unprocessable(error):
+    """
+     Propagates the formatted 404 error to the response
+     """
+    return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "resource not found"
+    }), 404
 
 
 '''
