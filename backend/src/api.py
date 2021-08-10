@@ -39,15 +39,21 @@ def drinks():
 '''
 
 
-'''
-@TODO implement endpoint
-    POST /drinks
-        it should create a new row in the drinks table
-        it should require the 'post:drinks' permission
-        it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
-        or appropriate status code indicating reason for failure
-'''
+@app.route('/drinks', methods=['POST'], endpoint='post_drink')
+@requires_auth('post:drinks')
+def drinks(f):
+    data = dict(request.form or request.json or request.data)
+    drink = Drink(title=data.get('title'),
+                  recipe=data.get('recipe') if type(data.get('recipe')) == str
+                  else json.dumps(data.get('recipe')))
+    try:
+        drink.insert()
+        return json.dumps({'success': True, 'drink': drink.long()}), 200
+    except:
+        return json.dumps({
+            'success': False,
+            'error': "An error occurred"
+        }), 500
 
 
 '''
