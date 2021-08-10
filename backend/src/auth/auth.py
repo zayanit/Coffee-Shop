@@ -23,8 +23,6 @@ class AuthError(Exception):
 ## Auth Header
 
 def get_token_auth_header():
-    """Obtains the access token from the Authorization Header
-      """
     auth = request.headers.get("Authorization", None)
     if not auth:
         raise AuthError(
@@ -59,19 +57,24 @@ def get_token_auth_header():
     token = parts[1]
     return token
 
-'''
-@TODO implement check_permissions(permission, payload) method
-    @INPUTS
-        permission: string permission (i.e. 'post:drink')
-        payload: decoded jwt payload
 
-    it should raise an AuthError if permissions are not included in the payload
-        !!NOTE check your RBAC settings in Auth0
-    it should raise an AuthError if the requested permission string is not in the payload permissions array
-    return true otherwise
-'''
 def check_permissions(permission, payload):
-    raise Exception('Not Implemented')
+    if payload.get('permissions'):
+        token_scopes = payload.get("permissions")
+        if (permission not in token_scopes):
+            raise AuthError(
+                {
+                    'code': 'invalid_permissions',
+                    'description': 'User does not have enough privileges'
+                }, 401)
+        else:
+            return True
+    else:
+        raise AuthError(
+            {
+                'code': 'invalid_permissions',
+                'description': 'User does not have any roles attached'
+            }, 401)
 
 '''
 @TODO implement verify_decode_jwt(token) method
