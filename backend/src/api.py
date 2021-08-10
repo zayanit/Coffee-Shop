@@ -126,7 +126,14 @@ def unprocessable(error):
         "message": "unprocessable"
     }), 422
 
-
+@app.errorhandler(400)
+def unprocessable(error):
+    return jsonify({
+        "success": False,
+        "error": 400,
+        "message": "Check the body request"
+    }), 400
+    
 '''
 @TODO implement error handlers using the @app.errorhandler(error) decorator
     each error handler should return (with approprate messages):
