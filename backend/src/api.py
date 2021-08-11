@@ -14,6 +14,8 @@ CORS(app)
 db_drop_and_create_all()
 
 # ROUTES
+
+
 @app.route('/drinks', methods=['GET'], endpoint='get_drinks')
 def drinks():
     try:
@@ -22,7 +24,7 @@ def drinks():
             True,
             'drinks': [drink.short() for drink in Drink.query.all()]
         }), 200
-    except:
+    except Exception as error:
         return json.dumps({
             'success': False,
             'error': "An error occurred"
@@ -38,7 +40,7 @@ def drinks_detail(f):
             True,
             'drinks': [drink.long() for drink in Drink.query.all()]
         }), 200
-    except:
+    except Exception as error:
         return json.dumps({
             'success': False,
             'error': "An error occurred"
@@ -55,7 +57,7 @@ def drinks(f):
     try:
         drink.insert()
         return json.dumps({'success': True, 'drink': drink.long()}), 200
-    except:
+    except Exception as error:
         return json.dumps({
             'success': False,
             'error': "An error occurred"
@@ -83,7 +85,7 @@ def drinks(f, id):
                 'error':
                 'Drink #' + id + ' not found to be edited'
             }), 404
-    except:
+    except Exception as error:
         return json.dumps({
             'success': False,
             'error': "An error occurred"
@@ -105,7 +107,7 @@ def drinks(f, id):
                 'error':
                 'Drink #' + id + ' not found to be deleted'
             }), 404
-    except:
+    except Exception as error:
         return json.dumps({
             'success': False,
             'error': "An error occurred"
@@ -126,6 +128,7 @@ def unprocessable(error):
         "message": "unprocessable"
     }), 422
 
+
 @app.errorhandler(400)
 def unprocessable(error):
     return jsonify({
@@ -133,6 +136,7 @@ def unprocessable(error):
         "error": 400,
         "message": "Check the body request"
     }), 400
+
 
 @app.errorhandler(404)
 def unprocessable(error):
