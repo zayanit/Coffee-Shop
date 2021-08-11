@@ -93,7 +93,7 @@ def drinks(f, id):
 
 
 @app.route('/drinks/<id>', methods=['DELETE'], endpoint='delete_drink')
-@requires_auth('patch:drinks')
+@requires_auth('delete:drinks')
 def drinks(f, id):
     try:
         drink = drink = Drink.query.filter(Drink.id == id).one_or_none()
