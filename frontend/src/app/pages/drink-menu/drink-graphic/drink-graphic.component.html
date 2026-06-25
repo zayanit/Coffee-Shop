@@ -3,7 +3,7 @@
   *ngFor="let ingredient of drink && drink.recipe"
   class="ingredient"
   [style.flexGrow]="ingredient.parts"
-  [style.background]="ingredient.color">
+  [style.background]="safeColor(ingredient.color)">
     {{t}}
   </div>
 </div>
