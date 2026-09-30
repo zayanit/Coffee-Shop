@@ -62,3 +62,13 @@ Note: `AUTH0_DOMAIN` and `API_AUDIENCE` are hardcoded constants in `auth.py`, no
 ## Auth0 configuration coupling
 
 Backend (`auth/auth.py`) and frontend (`environments/environment.ts`) each hardcode their own copy of the Auth0 domain/audience. When changing Auth0 tenants, apps, or permissions, both files need to be updated together, along with the roles/permissions in the Auth0 dashboard (Barista: `get:drinks-detail`; Manager: all four scopes).
+
+## Coding style
+
+- Python: PEP 8, four-space indent, `snake_case` route handlers/helpers.
+- TypeScript: two-space indent, single quotes, 140-char line limit (`frontend/tslint.json`). Angular classes are PascalCase with `Page`/`Component`/`Service` suffixes; selectors are kebab-case with an `app-` prefix; files are lowercase-hyphenated (e.g. `drink-menu.page.ts`).
+
+## Verifying changes
+
+- Frontend: add/update a Jasmine `*.spec.ts` beside changed code, then run the relevant spec plus `npm run build` before considering the change done.
+- Backend: run the Postman collection (`backend/udacity-fsnd-udaspicelatte.postman_collection.json`) against public, Barista, and Manager tokens, covering both success and 400/401/404 paths.
