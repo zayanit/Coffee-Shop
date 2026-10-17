@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-user-page',
+  standalone: false,
   templateUrl: './user-page.page.html',
   styleUrls: ['./user-page.page.scss'],
 })

@@ -7,6 +7,7 @@ const SAFE_COLOR_RE = /^(#[0-9a-fA-F]{3,8}|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|
 
 @Component({
   selector: 'app-drink-graphic',
+  standalone: false,
   templateUrl: './drink-graphic.component.html',
   styleUrls: ['./drink-graphic.component.scss'],
 })
