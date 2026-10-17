@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-drink-menu',
+  standalone: false,
   templateUrl: './drink-menu.page.html',
   styleUrls: ['./drink-menu.page.scss'],
 })

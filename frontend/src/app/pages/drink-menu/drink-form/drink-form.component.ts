@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-drink-form',
+  standalone: false,
   templateUrl: './drink-form.component.html',
   styleUrls: ['./drink-form.component.scss'],
 })

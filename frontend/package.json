@@ -44,7 +44,7 @@
   },
   "description": "An Ionic project",
   "overrides": {
-    "@babel/core": ">=7.29.6",
+    "@babel/core": "^7.29.6",
     "esbuild": ">=0.28.1",
     "http-proxy-middleware": ">=3.0.7",
     "undici": "^8.9.0",
